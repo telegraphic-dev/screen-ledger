@@ -1,20 +1,31 @@
-# bot-skills
+# Screen ledger
 
-Shared skills and helper scripts for Grok Bot agents.
+Screen ledger is a shared log and live view of who is using which desktop screen on a shared Grok Bot computer.
 
-A skill is a short `SKILL.md` that tells an agent when and how to do a specific job. Some skills come with a helper script that the skill calls. Each skill lives in its own folder under `skills/`.
+When several agents share one computer with a few virtual desktops (X displays), nothing says who holds which screen. Screen ledger gives each agent a way to claim and release a screen, and shows what is actually running on every screen.
 
-## Skills
+## Commands
 
-| Skill | What it does |
-| --- | --- |
-| [`screen-ledger`](skills/screen-ledger/) | Records which agent holds which desktop screen on a shared computer, and shows what is running on every screen. |
+```
+python3 scripts/screen-ledger.py claim <agent> [--display N] [--note TEXT]
+python3 scripts/screen-ledger.py release <agent> [--note TEXT]
+python3 scripts/screen-ledger.py status
+```
 
-## Install a skill
+`status` lists every screen with its uptime, open windows, Chrome age and any claim. `log [N]` prints the last N claims and releases.
 
-1. Open the skill's folder under `skills/`.
-2. In the Grok Bot app, create a new skill with the skill editor and paste in the contents of the folder's `SKILL.md`. Keep its `name` and `description` frontmatter.
-3. If the folder contains scripts, copy them to the path the `SKILL.md` names. For `screen-ledger`, that is `/home/box/tools/screen-ledger.py`.
+The log file is `/home/box/tools/screen-ledger.jsonl`. Set the `SCREEN_LEDGER_FILE` environment variable to use another path.
+
+## Requirements
+
+Linux with Xvfb screens, `python3` and `xdotool`.
+
+## Install
+
+This repository is an [Agent Plugins](https://agent-plugins.org) 1.0.0 plugin. Install it from a marketplace that lists it, or copy it by hand:
+
+- **Whole plugin:** copy this repository into your agent's plugins folder.
+- **Skill only:** copy `skills/screen-ledger/` (the `SKILL.md` and the `scripts/` folder) into your agent's skills folder, or paste `SKILL.md` into the Grok Bot skill editor and copy `scripts/screen-ledger.py` to a path the agents can run.
 
 ## License
 
