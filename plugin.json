@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "screen-ledger",
+  "version": "0.1.0",
+  "description": "A shared log and live view of which agent is using which desktop screen on a shared computer.",
+  "author": {
+    "name": "Telegraphic"
+  },
+  "homepage": "https://github.com/telegraphic-dev/screen-ledger",
+  "repository": "https://github.com/telegraphic-dev/screen-ledger",
+  "license": "MIT",
+  "keywords": ["screen-ledger", "desktop", "x11", "xvfb", "agents", "coordination"]
+}

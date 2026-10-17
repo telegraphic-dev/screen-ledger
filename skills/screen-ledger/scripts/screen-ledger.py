@@ -6,10 +6,13 @@ Usage:
   screen-ledger.py claim <agent> [--display N] [--note TEXT]
   screen-ledger.py release <agent> [--note TEXT]
   screen-ledger.py log [N]                        last N ledger events (default 20)
+
+The ledger file is read from the SCREEN_LEDGER_FILE environment variable,
+or /home/box/tools/screen-ledger.jsonl when it is not set.
 """
 import json, os, re, subprocess, sys, time, glob
 
-LEDGER = "/home/box/tools/screen-ledger.jsonl"
+LEDGER = os.environ.get("SCREEN_LEDGER_FILE") or "/home/box/tools/screen-ledger.jsonl"
 STALE_HOURS = 2
 
 def sh(cmd):
@@ -30,6 +33,7 @@ def read_ledger():
 
 def append(ev):
     ev["ts"] = time.strftime("%Y-%m-%dT%H:%M:%S%z")
+    os.makedirs(os.path.dirname(os.path.abspath(LEDGER)), exist_ok=True)
     with open(LEDGER, "a") as f:
         f.write(json.dumps(ev) + "\n")
 
