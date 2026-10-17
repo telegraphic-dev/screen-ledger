@@ -1,0 +1,2 @@
+# Ledger files hold runtime state, not source
+*.jsonl
